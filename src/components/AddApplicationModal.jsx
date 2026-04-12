@@ -1,39 +1,40 @@
-import { useState } from 'react'
-import { supabase } from '../lib/supabase'
-import { useAuth } from '../context/AuthContext'
+import { useState } from "react";
+import { supabase } from "../lib/supabase";
+import { useAuth } from "../context/AuthContext";
 
 export default function AddApplicationModal({ onClose, onAdded }) {
-    const { user } = useAuth()
-    const [company, setCompany] = useState('')
-    const [role, setRole] = useState('')
-    const [status, setStatus] = useState('Applied')
-    const [notes, setNotes] = useState('')
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState(null)
+    const { user } = useAuth();
+    const [company, setCompany] = useState("");
+    const [role, setRole] = useState("");
+    const [status, setStatus] = useState("Applied");
+    const [notes, setNotes] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    
 
     async function handleSubmit() {
         if (!company || !role) {
-            setError('Company and role are required.')
-            return
+            setError("Company and role are required.");
+            return;
         }
 
-        setLoading(true)
-        setError(null)
+        setLoading(true);
+        setError(null);
 
-        const { error } = await supabase.from('applications').insert({
+        const { error } = await supabase.from("applications").insert({
             user_id: user.id,
             company,
             role,
             status,
             notes,
-        })
+        });
 
         if (error) {
-            setError(error.message)
-            setLoading(false)
+            setError(error.message);
+            setLoading(false);
         } else {
-            onAdded()
-            onClose()
+            onAdded();
+            onClose();
         }
     }
 
@@ -48,19 +49,19 @@ export default function AddApplicationModal({ onClose, onAdded }) {
                     type="text"
                     placeholder="Company"
                     value={company}
-                    onChange={e => setCompany(e.target.value)}
+                    onChange={(e) => setCompany(e.target.value)}
                     className="w-full border rounded-lg px-4 py-2 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <input
                     type="text"
                     placeholder="Role"
                     value={role}
-                    onChange={e => setRole(e.target.value)}
+                    onChange={(e) => setRole(e.target.value)}
                     className="w-full border rounded-lg px-4 py-2 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <select
                     value={status}
-                    onChange={e => setStatus(e.target.value)}
+                    onChange={(e) => setStatus(e.target.value)}
                     className="w-full border rounded-lg px-4 py-2 mb-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 >
                     <option>Applied</option>
@@ -71,7 +72,7 @@ export default function AddApplicationModal({ onClose, onAdded }) {
                 <textarea
                     placeholder="Notes (optional)"
                     value={notes}
-                    onChange={e => setNotes(e.target.value)}
+                    onChange={(e) => setNotes(e.target.value)}
                     className="w-full border rounded-lg px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     rows={3}
                 />
@@ -88,10 +89,10 @@ export default function AddApplicationModal({ onClose, onAdded }) {
                         disabled={loading}
                         className="flex-1 bg-blue-600 text-white rounded-lg py-2 hover:bg-blue-700 disabled:opacity-50"
                     >
-                        {loading ? 'Saving...' : 'Add'}
+                        {loading ? "Saving..." : "Add"}
                     </button>
                 </div>
             </div>
         </div>
-    )
+    );
 }

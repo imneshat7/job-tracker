@@ -9,6 +9,7 @@ export default function Dashboard() {
     const navigate = useNavigate()
     const [applications, setApplications] = useState([])
     const [showModal, setShowModal] = useState(false)
+    const [filter, setFilter] = useState('All')
 
     async function fetchApplications() {
         const { data } = await supabase
@@ -53,28 +54,45 @@ export default function Dashboard() {
                     </button>
                 </div>
 
+                <div className="flex gap-2 mb-6">
+                    {['All', 'Applied', 'Interview', 'Offer', 'Rejected'].map(s => (
+                        <button
+                            key={s}
+                            onClick={() => setFilter(s)}
+                            className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ${filter === s
+                                ? 'bg-blue-600 text-white border-blue-600'
+                                : 'text-gray-600 border-gray-300 hover:bg-gray-100'
+                                }`}
+                        >
+                            {s}
+                        </button>
+                    ))}
+                </div>
+
                 {applications.length === 0 ? (
                     <p className="text-gray-500">No applications yet. Add one!</p>
                 ) : (
                     <div className="flex flex-col gap-4">
-                        {applications.map(app => (
-                            <div key={app.id} className="bg-white rounded-xl shadow-sm p-6">
-                                <div className="flex justify-between items-start">
-                                    <div>
-                                        <h3 className="text-lg font-semibold text-gray-800">{app.company}</h3>
-                                        <p className="text-gray-500">{app.role}</p>
-                                        {app.notes && <p className="text-sm text-gray-400 mt-2">{app.notes}</p>}
-                                    </div>
-                                    <span className={`text-sm px-3 py-1 rounded-full font-medium ${app.status === 'Applied' ? 'bg-blue-100 text-blue-700' :
+                        {applications
+                            .filter(app => filter === 'All' || app.status === filter)
+                            .map(app => (
+                                <div key={app.id} className="bg-white rounded-xl shadow-sm p-6">
+                                    <div className="flex justify-between items-start">
+                                        <div>
+                                            <h3 className="text-lg font-semibold text-gray-800">{app.company}</h3>
+                                            <p className="text-gray-500">{app.role}</p>
+                                            {app.notes && <p className="text-sm text-gray-400 mt-2">{app.notes}</p>}
+                                        </div>
+                                        <span className={`text-sm px-3 py-1 rounded-full font-medium ${app.status === 'Applied' ? 'bg-blue-100 text-blue-700' :
                                             app.status === 'Interview' ? 'bg-yellow-100 text-yellow-700' :
                                                 app.status === 'Offer' ? 'bg-green-100 text-green-700' :
                                                     'bg-red-100 text-red-700'
-                                        }`}>
-                                        {app.status}
-                                    </span>
+                                            }`}>
+                                            {app.status}
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
                     </div>
                 )}
             </main>
