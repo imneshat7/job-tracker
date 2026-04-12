@@ -28,6 +28,11 @@ export default function Dashboard() {
         navigate('/login')
     }
 
+    async function handleDelete(id) {
+        await supabase.from('applications').delete().eq('id', id)
+        fetchApplications()
+    }
+
     return (
         <div className="min-h-screen bg-gray-50">
             <nav className="bg-white shadow-sm px-6 py-4 flex justify-between items-center">
@@ -90,6 +95,12 @@ export default function Dashboard() {
                                             }`}>
                                             {app.status}
                                         </span>
+                                        <button
+                                            onClick={() => handleDelete(app.id)}
+                                            className='text-red-400  hover:text-red-600 text-sm ml-4'
+                                        >
+                                            Delete
+                                        </button>
                                     </div>
                                 </div>
                             ))}
