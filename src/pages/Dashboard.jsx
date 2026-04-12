@@ -32,6 +32,10 @@ export default function Dashboard() {
         await supabase.from('applications').delete().eq('id', id)
         fetchApplications()
     }
+    async function handleUpdate(id, newStatus) {
+        await supabase.from('applications').update({ status: newStatus }).eq('id', id)
+        fetchApplications()
+    }
 
     return (
         <div className="min-h-screen bg-gray-50">
@@ -95,6 +99,17 @@ export default function Dashboard() {
                                             }`}>
                                             {app.status}
                                         </span>
+                                        <select
+                                            value={app.status}
+                                            onChange={e => handleUpdate(app.id, e.target.value)}
+                                            className="text-sm border rounded-lg px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500"
+
+                                        >
+                                            <option>Applied</option>
+                                            <option>Interview</option>
+                                            <option>Rejected</option>
+                                            <option>Offer</option>
+                                        </select>
                                         <button
                                             onClick={() => handleDelete(app.id)}
                                             className='text-red-400  hover:text-red-600 text-sm ml-4'
