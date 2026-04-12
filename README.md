@@ -1,16 +1,53 @@
-# React + Vite
+# Job Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack job application tracker built with React and Supabase. Track every application, update statuses, and filter by stage — all with per-user authentication and data isolation.
 
-Currently, two official plugins are available:
+## Live Demo
+🔗 https://job-tracker-iota-tawny.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
+- Auth — signup, login, logout with Supabase Auth
+- Protected routes using React Context API
+- Add, update status, and delete job applications
+- Filter by status — Applied, Interview, Offer, Rejected
+- Per-user data isolation with Row Level Security (RLS)
 
-## React Compiler
+## Tech Stack
+- React.js
+- Vite
+- Tailwind CSS
+- Supabase (Auth + PostgreSQL)
+- Vercel
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Getting Started
 
-## Expanding the ESLint configuration
+Clone the repo and install dependencies:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+git clone https://github.com/imneshat7/job-tracker.git
+cd job-tracker
+npm install
+```
+
+Create a `.env` file in the root:
+
+Run the dev server:
+
+```bash
+npm run dev
+```
+
+## Project Structure
+
+src/
+├── components/
+│   └── AddApplicationModal.jsx
+├── context/
+│   └── AuthContext.jsx
+├── lib/
+│   └── supabase.js
+├── pages/
+│   ├── Dashboard.jsx
+│   └── Login.jsx
+├── App.jsx
+└── main.jsx
