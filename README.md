@@ -39,6 +39,7 @@ npm run dev
 
 ## Project Structure
 
+```
 src/
 ├── components/
 │   └── AddApplicationModal.jsx
@@ -51,3 +52,4 @@ src/
 │   └── Login.jsx
 ├── App.jsx
 └── main.jsx
+```
