@@ -1,20 +1,28 @@
 import { useState } from "react";
-import { supabase } from "../lib/supabase";
-import { useAuth } from "../context/AuthContext";
+import { supabase } from "../lib/supabase.js";
+import { useAuth } from "../context/AuthContext.js";
 
-export default function AddApplicationModal({ onClose, onAdded }) {
+interface Props {
+    onClose: () => void;
+    onAdded: () => void;
+}
+
+export default function AddApplicationModal({ onClose, onAdded }: Props) {
     const { user } = useAuth();
     const [company, setCompany] = useState("");
     const [role, setRole] = useState("");
     const [status, setStatus] = useState("Applied");
     const [notes, setNotes] = useState("");
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
     
 
     async function handleSubmit() {
+
+        if (!user) return;
+
         if (!company || !role) {
-            setError("Company and role are required.");
+            setError("Company and Role are required.");
             return;
         }
 

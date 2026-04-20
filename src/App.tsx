@@ -1,9 +1,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import {useAuth} from './context/AuthContext';
-import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+import {useAuth} from './context/AuthContext.js';
+import Login from "./pages/Login.js";
+import Dashboard from "./pages/Dashboard.js";
+import type { ReactNode } from "react";
 
-function ProtectedRoute ({children}) {
+
+function ProtectedRoute ({children} : {children : ReactNode}) {
   const {user , loading} = useAuth();
     if (loading) return <div className="min-h-screen flex items-center justify-center">Loading...</div>
     if(!user) return <Navigate to="/login" />

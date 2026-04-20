@@ -1,13 +1,23 @@
-import { useAuth } from '../context/AuthContext'
-import { supabase } from '../lib/supabase'
+import { useAuth } from '../context/AuthContext.js'
+import { supabase } from '../lib/supabase.js'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
-import AddApplicationModal from '../components/AddApplicationModal'
+import AddApplicationModal from '../components/AddApplicationModal.js'
+
+interface Application {
+    id: string;
+    user_id: string;
+    company: string;
+    role: string;
+    status: string;
+    notes: string | null;
+    created_at: string;
+}
 
 export default function Dashboard() {
     const { user } = useAuth()
     const navigate = useNavigate()
-    const [applications, setApplications] = useState([])
+    const [applications, setApplications] = useState<Application[]>([])
     const [showModal, setShowModal] = useState(false)
     const [filter, setFilter] = useState('All')
 
@@ -28,11 +38,11 @@ export default function Dashboard() {
         navigate('/login')
     }
 
-    async function handleDelete(id) {
+    async function handleDelete(id: string) {
         await supabase.from('applications').delete().eq('id', id)
         fetchApplications()
     }
-    async function handleUpdate(id, newStatus) {
+    async function handleUpdate(id:string, newStatus:string) {
         await supabase.from('applications').update({ status: newStatus }).eq('id', id)
         fetchApplications()
     }
