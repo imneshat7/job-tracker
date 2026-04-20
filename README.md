@@ -41,16 +41,15 @@ npm run dev
 ## Project Structure
 
 ```
-src/
 ├── components/
-│   └── AddApplicationModal.jsx
+│   └── AddApplicationModal.tsx
 ├── context/
-│   └── AuthContext.jsx
+│   └── AuthContext.tsx
 ├── lib/
-│   └── supabase.js
+│   └── supabase.ts
 ├── pages/
-│   ├── Dashboard.jsx
-│   └── Login.jsx
-├── App.jsx
-└── main.jsx
+│   ├── Dashboard.tsx
+│   └── Login.tsx
+├── App.tsx
+└── main.tsx
 ```
