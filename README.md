@@ -18,6 +18,7 @@ A full-stack job application tracker built with React and Supabase. Track every 
 - Tailwind CSS
 - Supabase (Auth + PostgreSQL)
 - Vercel
+- TypeScript
 
 ## Getting Started
 
